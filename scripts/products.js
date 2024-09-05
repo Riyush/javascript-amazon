@@ -32,7 +32,7 @@ class Product{
             <div class="product-rating-count link-primary">${this.numRatings}</div>
           </div>
 
-          <div class="product-price">${(this.priceCents / 100).toFixed(2)}</div>
+          <div class="product-price">$${(this.priceCents / 100).toFixed(2)}</div>
 
           <div class="product-quantity-container">
             <select>
@@ -56,7 +56,7 @@ class Product{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">Add to Cart</button>
+          <button class="add-to-cart-button button-primary js-add-to-cart">Add to Cart</button>
         </div>
           `
         return final_div
