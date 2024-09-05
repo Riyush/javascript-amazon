@@ -33,6 +33,9 @@ function addToCart(event){
     // Find the closest parent .product-container div
     const productContainer = buttonClicked.closest('.product-container');
     
+    // Call the function to start Item Added animation
+    itemAddedAnimation(productContainer.querySelector('.added-to-cart'));
+
     // Get product Information
     const product_name = productContainer.querySelector('.product-name').innerHTML.trim();
 
@@ -43,7 +46,6 @@ function addToCart(event){
     let existingProduct = cart.find(item => item.name === product_name);
     if (existingProduct) {
         existingProduct.quantity = parseInt(existingProduct.quantity) + parseInt(product_quantity);
-
     }
     else{
         const product_picture = productContainer.querySelector('.product-image').src;
@@ -90,6 +92,29 @@ function renderCart(new_quantity){
     document.querySelector(".cart-quantity").innerHTML = new_quantity;
 }
 
+//function to create Added Animation
+function itemAddedAnimation(added_div){
+    added_div.style.opacity = 1;
+    //pause for a second
+    setTimeout(() => {
+         //gradually bring opacity back to 0
+    const intervalID = setInterval(()=>{
+        let currentOpacity = parseFloat(added_div.style.opacity);
+        if (currentOpacity <= 0) {
+            // Stop the interval when opacity is 0 or less
+            clearInterval(intervalID);
+            added_div.style.opacity = 0; // Ensure opacity is exactly 0
+        }
+        else {
+            // Decrease opacity
+            added_div.style.opacity = (currentOpacity - 0.05).toFixed(2);
+        }
+    }, 100)
+    }
+    // this is the code that actually makes it pause
+    , 1000);
+   
+}
 renderCart(quantity);
 
 export {addToCart}
