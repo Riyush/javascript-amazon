@@ -1,5 +1,9 @@
 import {Product, add_div_to_page} from "./products.js";
-import { addToCart} from "./cart.js";
+// Javacript will inherit the entire context of the cart.js file including
+// The cart variable, other helper ffunction, etc. Therefore, I only have to
+// directly import the addtoCart ufnction which must be called by this file.
+// All of its dependencies are already handled.
+import {addToCart} from "./cart.js";
 // Initialize list of products
 let products = [];
 
