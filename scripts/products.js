@@ -1,5 +1,8 @@
 /*
 This file contains all the code to create products, generate their corresponding html, and add them to the page.
+NOTE: This produce is not he same product object used to add items to the cart.
+This is only for displaying products to page html. product objects are described
+differently in the cart.
 All the data is created and manipulated with these functions in the amazon.js file. 
 */
 

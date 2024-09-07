@@ -3,7 +3,7 @@ import {Product, add_div_to_page} from "./products.js";
 // The cart variable, other helper ffunction, etc. Therefore, I only have to
 // directly import the addtoCart ufnction which must be called by this file.
 // All of its dependencies are already handled.
-import {addToCart} from "./cart.js";
+import {addToCart, renderCart} from "./cart.js";
 // Initialize list of products
 let products = [];
 
@@ -34,3 +34,5 @@ document.querySelectorAll(".js-add-to-cart").forEach((buttonElem)=>{
     buttonElem.addEventListener("click", addToCart);
     });
 
+// Initially set cartQuantity in UI
+renderCart(quantity);

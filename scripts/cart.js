@@ -60,6 +60,8 @@ function addToCart(event){
         // Step 3: Convert to cents
         const priceInCents = Math.round(priceInDollars * 100);
 
+        //create shipping amount
+        let shipping = 0;
         
         // create product
         let product = {
@@ -67,6 +69,7 @@ function addToCart(event){
             picture: product_picture,
             price: priceInCents,
             quantity: product_quantity,
+            shipping_cost: shipping,
         }
         // Add product to cart
         cart.push(product);
@@ -85,6 +88,11 @@ function addToCart(event){
     localStorage.setItem("cart", JSON.stringify(cart));
     // save quantity
     localStorage.setItem("quantity", JSON.stringify(quantity));
+}
+
+//function to update cart during checkout
+function updateCartQuantity(event){
+    
 }
 
 //function to change UI cart quantity
@@ -115,9 +123,8 @@ function itemAddedAnimation(added_div){
     , 1000);
    
 }
-renderCart(quantity);
 
-export {addToCart}
+export {addToCart, cart, quantity, updateCartQuantity, renderCart}
 
 
 // Product characteristics: image_src. name, unit_cost, quantity_purchased
