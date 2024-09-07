@@ -19,7 +19,7 @@ input_boxes.forEach((input_box_html) =>{
         updateShipping(cart, event);
         // Recalculate the cost breakdown, and reload the order summary on the page.
         const order_summary = calculateCostBreakdown(cart);
-        //display new order summary to page
+        //display new order summary to page.
         generateOrderHTML(order_summary, quantity);
     })
 });

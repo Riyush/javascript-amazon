@@ -155,20 +155,16 @@ function updateShipping(user_cart, event) {
     const shippingOption = clickedElement.dataset.shipping_option; // Gets the value of data-shipping_option
 
     // Update shipping value in cart
-    console.log(typeof shippingOption);
-    console.log(index);
     switch (shippingOption){
         case '1':
             user_cart[index].shipping_cost = 0;
             break;
         case '2':
-            console.log("here");
             user_cart[index].shipping_cost = 499;
             break;
         case '3':
             user_cart[index].shipping_cost = 999;
             break;
     };
-    console.log(user_cart);
 }
 export {generateCartHTML, add_HTML_to_page, calculateCostBreakdown, generateOrderHTML, updateShipping}
