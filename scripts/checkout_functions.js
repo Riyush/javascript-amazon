@@ -2,10 +2,43 @@ import { deleteCartItem } from "./cart.js";
 
 // Function to generate the cart html using the cart array defined in cart.js
 function generateCartHTML(user_cart){
+    // Get the current date and time
+    const now = dayjs();
+    // Get dates representing different shipping times:
+    const oneDayShipping = now.add(1, 'day');
+    const threeDayShippping = now.add(3, 'day');
+    const free_shipping_date = now.add(7, 'day');
+    //Dates are formatted in appropriate spots in the HTML
     let cartHTML = "";
     user_cart.forEach((product_obj, index) => {
+        // Get the delivery date to display based on the shipping cost of the item
+        const delivery_option = product_obj.shipping_cost;
+        let formatted_delivery_date;
+        let first_checked_string;
+        let second_checked_string;
+        let third_checked_string;
+        switch (delivery_option) {
+            case 0:
+                formatted_delivery_date = free_shipping_date.format("dddd, MMMM DD");
+                first_checked_string = `checked=""`;
+                second_checked_string = "";
+                third_checked_string = "";
+                break;
+            case 499:
+                formatted_delivery_date = threeDayShippping.format("dddd, MMMM DD");
+                first_checked_string = "";
+                second_checked_string = `checked=""`;
+                third_checked_string = "";
+                break;
+            case 999:
+                formatted_delivery_date = oneDayShipping.format("dddd, MMMM DD");
+                first_checked_string = "";
+                second_checked_string = "";
+                third_checked_string = `checked=""`;
+                break
+        }
         let product_section = `<div class="cart-item-container">
-            <div class="delivery-date">Delivery date: Tuesday, June 21</div>
+            <div class="delivery-date">Delivery date: ${formatted_delivery_date}</div>
 
             <div class="cart-item-details-grid">
               <img class="product-image" src="${product_obj.picture}">
@@ -29,23 +62,23 @@ function generateCartHTML(user_cart){
                   Choose a delivery option:
                 </div>
                 <div class="delivery-option">
-                  <input type="radio" checked="" class="delivery-option-input" data-index="${index}" data-shipping_option = "1" name="delivery-option-${index}">
+                  <input type="radio" ${first_checked_string} class="delivery-option-input" data-index="${index}" data-shipping_option = "1" name="delivery-option-${index}">
                   <div>
-                    <div class="delivery-option-date">Tuesday, June 21</div>
+                    <div class="delivery-option-date">${free_shipping_date.format("dddd, MMMM DD")}</div>
                     <div class="delivery-option-price">FREE Shipping</div>
                   </div>
                 </div>
                 <div class="delivery-option">
-                  <input type="radio" class="delivery-option-input" data-index="${index}" data-shipping_option = "2" name="delivery-option-${index}">
+                  <input type="radio" ${second_checked_string} class="delivery-option-input" data-index="${index}" data-shipping_option = "2" name="delivery-option-${index}">
                   <div>
-                    <div class="delivery-option-date">Wednesday, June 15</div>
+                    <div class="delivery-option-date">${threeDayShippping.format("dddd, MMMM DD")}</div>
                     <div class="delivery-option-price">$4.99 - Shipping</div>
                   </div>
                 </div>
                 <div class="delivery-option">
-                  <input type="radio" class="delivery-option-input" data-index="${index}" data-shipping_option = "3" name="delivery-option-${index}">
+                  <input type="radio" ${third_checked_string} class="delivery-option-input" data-index="${index}" data-shipping_option = "3" name="delivery-option-${index}">
                   <div>
-                    <div class="delivery-option-date">Monday, June 13</div>
+                    <div class="delivery-option-date">${oneDayShipping.format("dddd, MMMM DD")}</div>
                     <div class="delivery-option-price">$9.99 - Shipping</div>
                   </div>
                 </div>
@@ -144,28 +177,4 @@ function generateOrderHTML(cost_breakdown, quantity_purchased) {
     document.querySelector(".payment-summary").innerHTML = Order_HTML;
 }
 
-
-// Function to handle toggleing of shipping cost.
-// This will change the shipping atttribute in cart and recalculate order breakdown
-function updateShipping(user_cart, event) {
-    // Get the clicked element
-    const clickedElement = event.target;
-
-    // Extract the data attributes
-    const index = clickedElement.dataset.index; // Gets the value of data-index
-    const shippingOption = clickedElement.dataset.shipping_option; // Gets the value of data-shipping_option
-
-    // Update shipping value in cart
-    switch (shippingOption){
-        case '1':
-            user_cart[index].shipping_cost = 0;
-            break;
-        case '2':
-            user_cart[index].shipping_cost = 499;
-            break;
-        case '3':
-            user_cart[index].shipping_cost = 999;
-            break;
-    };
-}
-export {generateCartHTML, add_HTML_to_page, calculateCostBreakdown, generateOrderHTML, updateShipping}
+export {generateCartHTML, add_HTML_to_page, calculateCostBreakdown, generateOrderHTML}

@@ -96,6 +96,32 @@ function updateCartQuantity(event){
     
 }
 
+// Function to handle toggleing of shipping cost.
+// This will change the shipping atttribute in cart and recalculate order breakdown
+function updateShipping(user_cart, event) {
+    // Get the clicked element
+    const clickedElement = event.target;
+
+    // Extract the data attributes
+    const index = clickedElement.dataset.index; // Gets the value of data-index
+    const shippingOption = clickedElement.dataset.shipping_option; // Gets the value of data-shipping_option
+
+    // Update shipping value in cart
+    switch (shippingOption){
+        case '1':
+            user_cart[index].shipping_cost = 0;
+            break;
+        case '2':
+            user_cart[index].shipping_cost = 499;
+            break;
+        case '3':
+            user_cart[index].shipping_cost = 999;
+            break;
+    };
+    //save cart
+    localStorage.setItem("cart", JSON.stringify(user_cart));
+}
+
 //funciton to deletet cart items from order
 function deleteCartItem(eventTarget){
     const productName = eventTarget.dataset.item_name;
@@ -141,7 +167,7 @@ function itemAddedAnimation(added_div){
    
 }
 
-export {addToCart, cart, quantity, updateCartQuantity, renderCart, deleteCartItem}
+export {addToCart, cart, quantity, updateCartQuantity, renderCart, deleteCartItem, updateShipping}
 
 
 // Product characteristics: image_src. name, unit_cost, quantity_purchased
