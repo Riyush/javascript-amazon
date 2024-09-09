@@ -1,4 +1,4 @@
-import { deleteCartItem } from "./cart.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
 // Function to generate the cart html using the cart array defined in cart.js
 function generateCartHTML(user_cart){
