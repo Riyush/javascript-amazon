@@ -1,4 +1,4 @@
-import {cart, quantity, updateCartQuantity} from "./cart.js";
+import {cart, quantity, updateCartQuantity, deleteCartItem} from "./cart.js";
 import {generateCartHTML, add_HTML_to_page, calculateCostBreakdown, generateOrderHTML, updateShipping} from "./checkout_functions.js";
 
 const order_summary_html = generateCartHTML(cart);
@@ -23,3 +23,11 @@ input_boxes.forEach((input_box_html) =>{
         generateOrderHTML(order_summary, quantity);
     })
 });
+
+// Add event listeners to the update buttons
+document.querySelectorAll(".js-delete-link").forEach((updateText) => {
+    updateText.addEventListener("click", (event) => {
+        deleteCartItem(event.target);
+        window.location.reload();
+    })
+})

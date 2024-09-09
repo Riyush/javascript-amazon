@@ -3,6 +3,7 @@ This file creates all the logic needed to properly manage the cart which persist
 NOTE: I added cart to the global window context, so that I can view the cart directly in my browser.
 */
 // Load the cart
+
 let cart;
 if (localStorage.getItem("cart") === null){
     cart = [];
@@ -95,6 +96,22 @@ function updateCartQuantity(event){
     
 }
 
+//funciton to deletet cart items from order
+function deleteCartItem(eventTarget){
+    const productName = eventTarget.dataset.item_name;
+    // Find the index of the product with the specified name
+    const index = cart.findIndex(product => product.name === productName);
+    console.log(cart);
+    console.log(index);
+    quantity -= Number(cart[index].quantity);
+    cart.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    localStorage.setItem("quantity", JSON.stringify(quantity));
+
+}
+
 //function to change UI cart quantity
 function renderCart(new_quantity){
     document.querySelector(".cart-quantity").innerHTML = new_quantity;
@@ -124,7 +141,7 @@ function itemAddedAnimation(added_div){
    
 }
 
-export {addToCart, cart, quantity, updateCartQuantity, renderCart}
+export {addToCart, cart, quantity, updateCartQuantity, renderCart, deleteCartItem}
 
 
 // Product characteristics: image_src. name, unit_cost, quantity_purchased
