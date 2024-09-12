@@ -7,6 +7,12 @@ All the data is created and manipulated with these functions in the amazon.js fi
 */
 
 class Product{
+    name;
+    img_src;
+    rating;
+    numRatings;
+    priceCents;
+
     constructor(name, img_src, rating, numRatings, priceCents){
         this.name = name;
         this.img_src = img_src;
@@ -51,19 +57,23 @@ class Product{
               <option value="10">10</option>
             </select>
           </div>
-
+          ${this.extraInfoHTML()}
           <div class="product-spacer"></div>
 
           <div class="added-to-cart">
             <img src="images/icons/checkmark.png" />
             Added
           </div>
-
+          
           <button class="add-to-cart-button button-primary js-add-to-cart">Add to Cart</button>
+          
         </div>
           `
         return final_div
 
+    }
+    extraInfoHTML() {
+        return ""
     }
 }
 function add_div_to_page(div_content){
@@ -71,5 +81,32 @@ function add_div_to_page(div_content){
     grid_element.innerHTML += div_content;
 }
 
+class Clothing extends Product{   
+    sizeChartLink;
+    constructor(name, img_src, rating, numRatings, priceCents, sizeChartLink) {
+        // Call the parent constructor with the necessary properties
+        super(name, img_src, rating, numRatings, priceCents);
+        
+        // Initialize additional properties
+        this.sizeChartLink = sizeChartLink;
+    };
+    extraInfoHTML () {
+        return `
+        <a href = "${this.sizeChartLink}" target = "_blank">Size</a>`;
+    }
+}
+// Example usage
+const productDetails = {
+    name: "T-Shirt",
+    img_src: "tshirt.jpg",
+    rating: 4.5,
+    numRatings: 200,
+    priceCents: 1999,
+    sizeChartLink: "sizechart.com/tshirt"
+};
+
+const example = new Clothing(productDetails);
+
+console.log(example);
 // Export the Product class
-export {Product, add_div_to_page}
+export {Product, Clothing, add_div_to_page}

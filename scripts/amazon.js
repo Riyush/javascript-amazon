@@ -1,9 +1,10 @@
-import {Product, add_div_to_page} from "./products.js";
+import {Product, Clothing, add_div_to_page} from "./products.js";
 // Javacript will inherit the entire context of the cart.js file including
 // The cart variable, other helper ffunction, etc. Therefore, I only have to
 // directly import the addtoCart ufnction which must be called by this file.
 // All of its dependencies are already handled.
 import {addToCart, renderCart} from "./cart.js";
+//import {cart} from "./cart_oop.js"
 // Initialize list of products
 let products = [];
 
@@ -14,7 +15,7 @@ const black_and_gray_socks = new Product("Black and Gray Athletic Cotton Socks -
 const basketball = new Product("Intermediate Size Basketball", 
     "images/products/intermediate-composite-basketball.jpg", 4, 127, 2095);
 
-const t_shirts_teal = new Product ("Adults Plain Cotton T-Shirt - 2 Pack", "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg", 4.5, 56, 799);
+const t_shirts_teal = new Clothing ("Adults Plain Cotton T-Shirt - 2 Pack", "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg", 4.5, 56, 799, "images/clothing-size-chart.png");
 
 const toaster = new Product ("2 Slot Toaster - Black", "images/products/black-2-slot-toaster.jpg", 5, 2197, 1899 );
 
@@ -76,6 +77,9 @@ products.forEach((product) => {
     const product_div = product.generateHTML();
     add_div_to_page(product_div);
 });
+
+// load cart from storage for oop version of cart setup
+//cart.loadFromStorage();
 
 // Add event listeners to each product that call the addtoCart function upon click
 document.querySelectorAll(".js-add-to-cart").forEach((buttonElem)=>{

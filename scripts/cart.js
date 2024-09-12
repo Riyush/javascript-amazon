@@ -167,7 +167,7 @@ function itemAddedAnimation(added_div){
    
 }
 
-export {addToCart, cart, quantity, updateCartQuantity, renderCart, deleteCartItem, updateShipping}
+export {addToCart, cart, quantity, updateCartQuantity, renderCart, deleteCartItem, updateShipping, itemAddedAnimation}
 
 
 // Product characteristics: image_src. name, unit_cost, quantity_purchased
