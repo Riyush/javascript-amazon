@@ -175,6 +175,7 @@ function generateOrderHTML(cost_breakdown, quantity_purchased) {
       </div>`;
 
     document.querySelector(".payment-summary").innerHTML = Order_HTML;
+    
 }
 
 export {generateCartHTML, add_HTML_to_page, calculateCostBreakdown, generateOrderHTML}

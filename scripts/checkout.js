@@ -1,5 +1,7 @@
 import {cart, quantity, updateCartQuantity, deleteCartItem, updateShipping} from "./cart.js";
 import {generateCartHTML, add_HTML_to_page, calculateCostBreakdown, generateOrderHTML} from "./checkout_functions.js";
+import { addOrder, orders } from "./orders.js";
+//import "./backend-practice.js";
 
 
 let order_summary_html = generateCartHTML(cart);
@@ -29,4 +31,32 @@ document.querySelectorAll(".js-delete-link").forEach((updateText) => {
         deleteCartItem(event.target);
         window.location.reload();
     })
+})
+
+// Add code to make place order button interactive
+const button = document.querySelector(".js-place-order-button");
+/*
+I NEED TO ADD CODE that converts the current cart into a format that is readable
+by the backend.
+*/
+button.addEventListener("click", async () => {
+    let order;
+    try{
+    const response = await fetch('https://supersimplebackend.dev/orders',{
+        method:"POST", 
+        headers:{
+            "Content-Type":"application/json",
+            
+        },
+        body:JSON.stringify({
+            cart: cart,
+        })
+    });
+    order = await response.json();
+}catch(error){
+    console.log(error);
+    order = "test_order";
+}
+    addOrder('test');
+    window.location.href = "orders.html"
 })
